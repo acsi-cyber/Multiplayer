@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5415541981433672380}
   - component: {fileID: -5607426101823674629}
   - component: {fileID: 7568196610493649865}
+  - component: {fileID: 3662696405430424806}
   m_Layer: 0
   m_Name: Palyer
   m_TagString: Player
@@ -263,6 +264,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0.19380204, y: 0}
   m_Size: {x: 2.116385, y: 6.3999996}
   m_Direction: 0
+--- !u!95 &3662696405430424806
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2908434568842335459}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 455503cc03494bb43a2a7067c6caaa6b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4677082808993436057
 GameObject:
   m_ObjectHideFlags: 0
