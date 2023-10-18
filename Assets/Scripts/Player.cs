@@ -7,6 +7,8 @@ public class Player : NetworkBehaviour
 {
     public GameManager manager;
     public int money;
+    public Animator anim;
+    public Vector2 moveVector;
 
     public float speed = 5.0f; // Скорость движения персонажа
     public float jumpForce = 8.0f; // Сила прыжка
@@ -15,16 +17,19 @@ public class Player : NetworkBehaviour
     private Rigidbody2D rb;
     private Camera mainCam;
     private bool isGrounded;
+    public static bool isJump;
 
     private void Awake()
     {
         mainCam = Camera.main;
     }
 
-    private void Start()
+    public void Start()
     {
         manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        anim = GameObject.FindGameObjectWithTag("Animator").GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     private void CameraMovement()
@@ -32,8 +37,8 @@ public class Player : NetworkBehaviour
         mainCam.transform.localPosition = new Vector3(transform.position.x, transform.position.y, -1f);
         transform.position = Vector2.MoveTowards(transform.position, mainCam.transform.localPosition, Time.deltaTime);
     }
-        
-    private void Update()
+
+    public void Update()
     {
         if (!isLocalPlayer) return;
 
@@ -44,16 +49,16 @@ public class Player : NetworkBehaviour
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 1.3f, groundLayer);
 
         // Получаем ввод с клавиатуры
-        float moveX = Input.GetAxis("Horizontal");
+        moveVector.x = Input.GetAxis("Horizontal");
 
         // Применяем ввод к Rigidbody для движения
-        rb.velocity = new Vector2(moveX * speed, rb.velocity.y);
+        rb.velocity = new Vector2(moveVector.x * speed, rb.velocity.y);
 
-        if (moveX > 0)
+        if (moveVector.x > 0)
         {
             transform.localScale = new Vector3(0.35f, 0.35f, 0.35f); // Отражение вправо
         }
-        else if (moveX < 0)
+        else if (moveVector.x < 0)
         {
             transform.localScale = new Vector3(-0.35f, 0.35f, 0.35f); // Отражение влево
         }
@@ -62,6 +67,16 @@ public class Player : NetworkBehaviour
         if (isGrounded & Input.GetButtonDown("Jump"))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+
+        if (isGrounded == false)
+        {
+            isJump = true;
+        }
+
+        else if (isGrounded == true)
+        {
+            isJump = false;
         }
 
         CameraMovement();
