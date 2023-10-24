@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.SceneManagement;
 
 public class TeleportMobil2 : NetworkBehaviour
 {
@@ -28,8 +29,8 @@ public class TeleportMobil2 : NetworkBehaviour
     public void Click()
     {
         if(PlayerMobil.money >= 8) 
-        { 
-            player.transform.position = new Vector2(280f, 40f);
+        {
+            SceneManager.LoadScene(4);
         }
     }
 }
