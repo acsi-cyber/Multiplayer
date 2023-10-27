@@ -9,6 +9,8 @@ public class PlayerMobil : MonoBehaviour
     public Animator anim;
     public Vector2 moveVector;
     public Joystick joystick;
+    public AudioClip clip;
+    AudioSource playerAudio;
 
     public float speed = 5.0f; // Скорость движения персонажа
     public float jumpForce = 8.0f; // Сила прыжка
@@ -28,6 +30,7 @@ public class PlayerMobil : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     private void CameraMovement()
@@ -54,10 +57,18 @@ public class PlayerMobil : MonoBehaviour
         if (joystick.Horizontal > 0)
         {
             transform.localScale = new Vector3(0.35f, 0.35f, 0.35f); // Отражение вправо
+            if (!playerAudio.isPlaying & isGrounded == true)
+            {
+                playerAudio.Play();
+            }
         }
         else if (joystick.Horizontal < 0)
         {
             transform.localScale = new Vector3(-0.35f, 0.35f, 0.35f); // Отражение влево
+            if (!playerAudio.isPlaying & isGrounded == true)
+            {
+                playerAudio.Play();
+            }
         }
 
         if (isGrounded == false)

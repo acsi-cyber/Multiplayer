@@ -5,6 +5,13 @@ using UnityEngine;
 public class Trampoline : MonoBehaviour
 {
     public float bounceForce = 10f;  // Сила отталкивания
+    public AudioClip clip;
+    AudioSource playerAudio;
+
+    private void Start()
+    {
+        playerAudio = GetComponent<AudioSource>();
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -14,6 +21,10 @@ public class Trampoline : MonoBehaviour
             if (rb != null)
             {
                 rb.velocity = new Vector2(rb.velocity.x, bounceForce);
+                if (!playerAudio.isPlaying)
+                {
+                    playerAudio.Play();
+                }
             }
         }
     }
